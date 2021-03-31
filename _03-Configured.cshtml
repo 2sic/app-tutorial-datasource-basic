@@ -1,0 +1,22 @@
+@inherits ToSic.Sxc.Dnn.RazorComponent
+
+<div @Edit.TagToolbar(Content)>
+    
+    <h2>Demo showing a List from the Tutorial DataSource</h2>
+    <p>
+        <em>You should see this view because it was activated in the URL with the <code>?basic=...</code> parameter.</em>
+    </p>
+    <p>
+    This is just a demo. It only works if you have the DLLs for the DateTimeDataSource installed and if this template is attached to that Query
+    </p>
+    
+    <ol>
+    	<li>Title: @Content.EntityTitle</li>
+    	<li>Date: @Content.Date</li>
+    	<li>Weekday: @Content.Weekday</li>
+    	<li>DayOfWeek: @Content.DayOfWeek</li>
+    	<li>ID: @Content.EntityId
+    
+    
+    </ol>
+</div>

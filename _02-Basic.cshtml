@@ -1,0 +1,50 @@
+@inherits ToSic.Sxc.Dnn.RazorComponent
+
+<div @Edit.TagToolbar(Content)>
+    
+    <h2>Demo showing data from the DateTimeDataSource</h2>
+    <p>
+        <em>You should see this view because it was activated in the URL with the <code>?basic=...</code> parameter.</em>
+    </p>
+    <p>
+    This is just a demo. It only works if you have the DLLs for the DateTimeDataSource installed and if this template is attached to that Query
+    </p>
+
+    @{
+      // This will first check if we get an error - in which case the DataSource is not installed yet
+      // 
+      var dataFromQuery = AsDynamic(App.Query["DemoBasic"].List.FirstOrDefault());
+      var dataSourcError = Content.Error != null; // && dataFromQuery.Error.Contains("not found");
+    }
+    @if (dataSourcError) {
+      <div class="alert alert-danger">
+        <h2>Error: DataSource not yet installed</h2>
+        <div>
+          The backend reports <code>@dataFromQuery.Error</code>. <br>
+          You have probably not yet installed the <a href="https://github.com/2sic/datasource-tutorial-basic/releases" target="_blank">Dnn Package containing the DLLs with the custom DataSource</a>
+        </div>
+      </div>
+    } else {
+    
+      <h2>Data from the <em>Basic</em> DataSource </h2>
+      <p>The <em>Basic</em> DataSource is attached to the <code>Default</code> stream, so we get the first (and only item) in the <code>Content</code> object.</p>
+      <ol>
+        <li>Title: @Content.EntityTitle</li>
+        <li>Date: @Content.Date</li>
+        <li>Weekday: @Content.Weekday</li>
+        <li>DayOfWeek: @Content.DayOfWeek</li>
+        <li>ID: @Content.EntityId
+      </ol>
+      
+      <h2>Data from the <em>DateTime List</em> DataSource </h2>
+      <p>The <em>DateTime</em> DataSource is attached to the <code>RandomDates</code> Stream</p>
+      
+      <ol>
+          @foreach(var date in AsList(App.Query["DemoBasicList"])) {
+              <li>
+                  @date.EntityTitle
+              </li>
+          }
+      </ol>
+    }
+</div>
